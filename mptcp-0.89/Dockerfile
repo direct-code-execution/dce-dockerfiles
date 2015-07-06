@@ -10,6 +10,9 @@ RUN mkdir -p /var/lib/mptcp-0.89
 
 RUN git clone git://github.com/multipath-tcp/mptcp -b mptcp_v0.89
 WORKDIR /var/lib/mptcp-0.89/mptcp
+
+RUN make defconfig
+
 RUN git remote add dce git://github.com/direct-code-execution/net-next-sim.git
 RUN git fetch dce
 RUN git merge dce/sim-ns3-3.11.0-branch
