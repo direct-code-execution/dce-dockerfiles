@@ -13,9 +13,10 @@ WORKDIR /var/lib/mptcp-0.89/mptcp
 RUN git remote add dce git://github.com/direct-code-execution/net-next-sim.git
 RUN git fetch dce
 RUN git merge dce/sim-ns3-3.11.0-branch
+RUN make defconfig ARCH=sim
+
 RUN cat /add-defconfig >> arch/sim/defconfig
 
-RUN make clean ARCH=sim
 RUN make defconfig ARCH=sim
 RUN make library ARCH=sim OPT=no
 
