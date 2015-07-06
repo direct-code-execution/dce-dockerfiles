@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get install -y mercurial libexpat1-dev git-core build-essential bison flex libssl-dev libdb-dev libpcap-dev libc6-dbg pkg-config
 
 WORKDIR /var/lib/mptcp-0.89
-ADD add-defconfig
+ADD add-defconfig /var/lib/mptcp-0.89
 
 RUN git clone git://github.com/multipath-tcp/mptcp -b mptcp_v0.89
 WORKDIR /var/lib/mptcp-0.89/mptcp
