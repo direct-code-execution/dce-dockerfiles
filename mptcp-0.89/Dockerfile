@@ -24,8 +24,6 @@ RUN mkdir -p /home/ns3/mptcp-0.89
 RUN git clone git://github.com/multipath-tcp/mptcp -b mptcp_v0.89
 WORKDIR /home/ns3/mptcp-0.89/mptcp
 
-RUN make defconfig
-
 RUN git remote add dce git://github.com/direct-code-execution/net-next-sim.git
 RUN git fetch dce
 RUN git config --global user.email "you@example.com"
