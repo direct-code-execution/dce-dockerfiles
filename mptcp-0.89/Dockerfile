@@ -18,8 +18,8 @@ RUN export uid=1000 gid=1000 && \
 USER ns3
 ENV HOME /home/ns3
 
-WORKDIR /home/ns3/mptcp-0.89
 RUN mkdir -p /home/ns3/mptcp-0.89
+WORKDIR /home/ns3/mptcp-0.89
 
 RUN git clone git://github.com/multipath-tcp/mptcp -b mptcp_v0.89
 WORKDIR /home/ns3/mptcp-0.89/mptcp
