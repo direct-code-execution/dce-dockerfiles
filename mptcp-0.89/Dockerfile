@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Hajime Tazaki <thehajime@gmail.com>
 
 RUN apt-get update
-RUN apt-get install -y mercurial libexpat1-dev git-core build-essential bison flex libssl-dev libdb-dev libpcap-dev libc6-dbg pkg-config libncurses-dev vim bc autoconf
+RUN apt-get install -y mercurial libexpat1-dev git-core build-essential bison flex libssl-dev libdb-dev libpcap-dev libc6-dbg pkg-config libncurses-dev vim bc autoconf python-pygoocanvas python-pygraphviz python-dev bzr gccxml
 
 ADD add-defconfig /
 WORKDIR /var/lib/mptcp-0.89
