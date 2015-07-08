@@ -5,11 +5,24 @@ RUN apt-get update
 RUN apt-get install -y mercurial libexpat1-dev git-core build-essential bison flex libssl-dev libdb-dev libpcap-dev libc6-dbg pkg-config libncurses-dev vim bc autoconf python-pygoocanvas python-pygraphviz python-dev bzr gccxml
 
 ADD add-defconfig /
-WORKDIR /var/lib/mptcp-0.89
-RUN mkdir -p /var/lib/mptcp-0.89
+
+# Replace 1000 with your user / group id
+RUN export uid=1000 gid=1000 && \
+    mkdir -p /home/ns3 && \
+    echo "ns3:x:${uid}:${gid}:ns-3,,,:/home/ns3:/bin/bash" >> /etc/passwd && \
+    echo "ns3:x:${uid}:" >> /etc/group && \
+    echo "ns3 ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ns3 && \
+    chmod 0440 /etc/sudoers.d/ns3 && \
+    chown ${uid}:${gid} -R /home/ns3
+
+USER ns3
+ENV HOME /home/ns3
+
+WORKDIR /home/ns3/mptcp-0.89
+RUN mkdir -p /home/ns3/mptcp-0.89
 
 RUN git clone git://github.com/multipath-tcp/mptcp -b mptcp_v0.89
-WORKDIR /var/lib/mptcp-0.89/mptcp
+WORKDIR /home/ns3/mptcp-0.89/mptcp
 
 RUN make defconfig
 
@@ -24,7 +37,7 @@ RUN make clean ARCH=sim
 RUN make defconfig ARCH=sim
 RUN make library ARCH=sim OPT=no
 
-WORKDIR /var/lib/mptcp-0.89/mptcp/arch/sim/test
+WORKDIR /home/ns3/mptcp-0.89/mptcp/arch/sim/test
 RUN make testbin
-WORKDIR /var/lib/mptcp-0.89/mptcp/
+WORKDIR /home/ns3/mptcp-0.89/mptcp/
 RUN make test ARCH=sim ADD_PARAM="-r"
